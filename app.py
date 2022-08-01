@@ -1,4 +1,6 @@
 from flask import Flask, render_template, url_for, request
+import csv
+from os.path import exists, join
 
 app = Flask(__name__)
 
@@ -13,7 +15,20 @@ class newTripIdea:
     def __repr__(self):
         return f'Trip name: {self.name}'
 
+    def write_data(self, file_path):
+        headers_list = ['Trip name', 'Email', 'Description', 'Completness', 'Grid Check']
+        form_data = [self.name, self.email, self.description, self.completness, str(self.gridCheck)]
 
+        if not exists(file_path):
+            with open(file_path, 'w', newline='') as csvfile:
+                writer = csv.DictWriter(csvfile, delimiter=',', fieldnames=headers_list)
+                writer.writeheader()
+        with open(file_path, 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(form_data)
+
+        
+        
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -47,11 +62,11 @@ def new_trip_form():
         if 'gridCheck1' in request.form:
             gridCheck = True
 
-
         new_trip_idea = newTripIdea(trip_name, email, description, completness, gridCheck)
 
         #print(new_trip_idea.name, new_trip_idea.email, new_trip_idea.description, new_trip_idea.completness, new_trip_idea.gridCheck)
-    
+        new_trip_idea.write_data(join(app.static_folder, 'trip_data.csv'))
+
         return render_template('trip_details.html')
 
 
