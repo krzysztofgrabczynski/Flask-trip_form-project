@@ -26,8 +26,14 @@ class newTripIdea:
         with open(file_path, 'a', newline='') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(form_data)
-
         
+    def read_data(self, filepath, trip_name):
+        with open(filepath, 'r') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                if row[0] == trip_name:
+                    return newTripIdea(row[0], row[1], row[2], row[3], row[4])
+
         
 
 
@@ -63,10 +69,8 @@ def new_trip_form():
             gridCheck = True
 
         new_trip_idea = newTripIdea(trip_name, email, description, completness, gridCheck)
-
-        #print(new_trip_idea.name, new_trip_idea.email, new_trip_idea.description, new_trip_idea.completness, new_trip_idea.gridCheck)
         new_trip_idea.write_data(join(app.static_folder, 'trip_data.csv'))
-
+        
         return render_template('trip_details.html')
 
 
