@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
 import csv
 from os.path import exists, join
 
@@ -71,7 +71,7 @@ def new_trip_form():
         new_trip_idea = newTripIdea(trip_name, email, description, completness, gridCheck)
         new_trip_idea.write_data(join(app.static_folder, 'trip_data.csv'))
         
-        return render_template('trip_details.html')
+        return redirect(url_for('index'))
 
 
 
