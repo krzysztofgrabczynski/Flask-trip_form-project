@@ -11,9 +11,15 @@ class newTripIdea:
         self.email = email
         self.description = description
         self.completness = completness
-        self.gridCheck = gridCheck
+        self.gridCheck = gridCheck     
+
+
     def __repr__(self):
         return f'Trip name: {self.name}'
+
+    @property
+    def trip_details_by_dict(self):
+        return {'trip_name':self.name, 'email':self.email, 'description':self.description, 'completness':self.completness, 'gridCheck':(self.gridCheck)}
 
     def write_data(self, file_path):
         headers_list = ['Trip name', 'Email', 'Description', 'Completness', 'Grid Check']
@@ -26,25 +32,41 @@ class newTripIdea:
         with open(file_path, 'a', newline='') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(form_data)
-        
-    def read_data(self, filepath, trip_name):
+
+    @classmethod  
+    def read_data_for_trip(cls, filepath, trip_name):
         with open(filepath, 'r') as csvfile:
             reader = csv.reader(csvfile)
             for row in reader:
                 if row[0] == trip_name:
                     return newTripIdea(row[0], row[1], row[2], row[3], row[4])
 
-        
+    @classmethod
+    def read_trip_names(cls, filepath):
+        trip_name_list = []
+        with open(filepath, 'r') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                trip_name_list.append(row[0])
+            return trip_name_list
+
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    
     if request.method == 'GET':
-        return render_template('index.html')
+        trip_name_list = newTripIdea.read_trip_names(join(app.static_folder, 'trip_data.csv'))
+
+        return render_template('index.html', trip_name_list=trip_name_list)
     
     else:
-        return render_template('trip_details.html')
+        trip_option = ''
+        if 'trip_option' in request.form:
+            trip_option = request.form['trip_option']
+        
+        trip_details = newTripIdea.read_data_for_trip(join(app.static_folder, 'trip_data.csv'), trip_option)
+
+        return render_template('trip_details.html', trip_details=trip_details.trip_details_by_dict)
 
 @app.route('/new_trip_form', methods=['GET', 'POST'])
 def new_trip_form():

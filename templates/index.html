@@ -13,11 +13,11 @@
 
     <div>
         <label for="trip_name" class="form-label">Trip name</label>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="form-select" name="trip_option" aria-label="Default select example">
+            <option selected>Choose a trip</option>
+            {% for trip in trip_name_list: %}
+                <option value="{{trip}}">{{ trip }}</option>
+            {% endfor %}
         </select>
     </div>
     

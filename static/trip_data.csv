@@ -1,25 +1,2 @@
-Trip name,Email,Description,Completness,Grid Check
-Krakow,abc@abc,Wawel,option2,True
-Krakow,abc@abc,Wawel,option2,True
-Wroclaw,abc@abc,Wawela,option2,True
-Wroclaw,abc@abc,Wawela,option1,False
-dasd,dasd@d,das,option2,True
-dasd,dasd@d,das,option2,True
-dasd,dasd@d,das,option2,True
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Tarnow,dasd@ddasdasdas,siemano,option2,False
-Gdansk,dsa@dasdas,adssdsasadsaddsa,option1,True
-,,,option1,False
-,,,option1,False
-,,,option1,False
-,,,option1,False
-,,,option1,False
+Krakow,aaa@asda,Idziemy na Wawel,option1,True
+Wroclaw,email@emial,short,option2,True
